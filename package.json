@@ -1,0 +1,30 @@
+{
+  "name": "hf-dataset-exporter",
+  "version": "1.0.0",
+  "description": "Reusable Web Component for exporting EBI resources to HuggingFace datasets",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "start": "npx http-server -p 8000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "huggingface",
+    "datasets",
+    "bioinformatics",
+    "web-component"
+  ],
+  "author": "EBI",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "babel-loader": "^9.1.3",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@huggingface/hub": "^0.15.0"
+  }
+}
