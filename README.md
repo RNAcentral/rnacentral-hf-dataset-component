@@ -114,4 +114,4 @@ Then open `http://localhost:8000/example.html`.
 
 ## License
 
-ISC
+MIT
