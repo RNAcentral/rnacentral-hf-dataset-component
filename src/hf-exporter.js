@@ -37,7 +37,8 @@ class HFDatasetExporter extends HTMLElement {
     };
 
     // Listen for OAuth callback messages
-    window.addEventListener('message', this.handleOAuthCallback.bind(this));
+    this._boundHandleOAuthCallback = this.handleOAuthCallback.bind(this);
+    window.addEventListener('message', this._boundHandleOAuthCallback);
 
     // Add event listeners
     this.setupEventListeners();
@@ -51,7 +52,7 @@ class HFDatasetExporter extends HTMLElement {
     if (this.oauthPopup && !this.oauthPopup.closed) {
       this.oauthPopup.close();
     }
-    window.removeEventListener('message', this.handleOAuthCallback.bind(this));
+    window.removeEventListener('message', this._boundHandleOAuthCallback);
   }
 
   setupEventListeners() {
@@ -237,6 +238,11 @@ class HFDatasetExporter extends HTMLElement {
   }
 
   async handleOAuthCallback(event) {
+    // Ignore postMessages that aren't OAuth callbacks (e.g. from Angular, analytics, iframes)
+    if (!event.data || (!event.data.code && !event.data.error)) {
+      return;
+    }
+
     // Accept messages from same origin (for localhost development and production)
     const redirectOrigin = new URL(this.config.redirectUri).origin;
     const currentOrigin = window.location.origin;
